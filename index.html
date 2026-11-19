@@ -194,6 +194,8 @@ a.up{color:#fcd34d!important}
 .ptab .ok{color:var(--emr2);font-weight:700}.ptab .no{color:#6b5a60}
 .watch{display:flex;gap:18px;align-items:flex-start;border-color:rgba(16,185,129,.45)!important;background:linear-gradient(135deg,rgba(16,185,129,.08),transparent 60%)!important}
 .watch .wi{font-size:38px;flex:none}
+.noPk{margin-bottom:18px;border-color:rgba(234,179,8,.45)!important;background:linear-gradient(135deg,rgba(234,179,8,.08),transparent 60%)!important;font-size:14px;line-height:1.6}
+.noPk b{color:#fcd34d}
 .pkg-note{margin-top:14px;font-size:12px;color:var(--mut);line-height:1.6;padding:12px 14px;border:1px dashed var(--line);border-radius:12px}
 .rb-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 8px}
 .rb-tabs button{all:unset;cursor:pointer;padding:10px 16px;border-radius:12px;border:1px solid var(--line);color:var(--mut);font-size:13.5px;transition:.2s}
@@ -766,6 +768,7 @@ body.locked #gate{display:flex}
     <!-- ============ PAKETLER ============ -->
     <section id="s-pkg">
       <div class="sec-head"><h2 class="gold">VIP Paketler</h2><div class="muted">İhtiyacınıza uygun erişim seviyesini seçin; satın almak için butona basmanız yeterli, uzmanınız sizinle iletişime geçer.</div></div>
+      <div id="pkgIntro"></div>
       <div class="grid g3" id="pkgCards"></div>
       <div class="card" style="margin-top:20px;overflow-x:auto"><h3 style="margin-bottom:12px">Paket Karşılaştırması</h3><div id="pkgTable"></div></div>
       <div class="card watch" style="margin-top:20px">
@@ -843,9 +846,10 @@ const CONFIG = {
   // kodu yazın, çıkan uzun metni aşağıdaki listeye tırnak içinde ekleyin.
   // Birden fazla kod verebilirsiniz (ör. her yatırımcıya ayrı kod) — listeden silinen kod çalışmaz.
   // Hangi kod hangi pakete ait (yönetici kodu tüm erişimi alır)
-  paketHarita: {"d03999d2c4741d18c80b449d84e31b2ce85ef255c5a1bbfc6d6880e031a31e36": "gold", "02bf377f57742ae1b2af12474a38c09b48591886474717828b68c049ccd97695": "gold", "b9e40e69478ccf3d4a9c6a59e5fc9255416c3d6ef6edeade611db25865f46c23": "gold", "7c0fa0b3adc4b21a0961e72f47134eb53d0a285a949b785a7060e9d1cc4fcba5": "gold", "0277a3376e86beb3316577662cdedf394ac1ab88bcfe4aae8abb74e1144758b1": "gold", "88d150424522d4357edbe0eda13dbfa8f12424e7292da8876015c14100f8bdbb": "gold", "92c43d6e7888653a25c65175f4ac10059e28ed60dc93f54e5341fc35b8077fd2": "gold", "8398bf4e9f2b85d629ef9ace07d5c9447c9530ba77379184ce2bc65ac7225db6": "gold", "b8e9631a4e2bd1c8972f8a9d09a20c4b7b70e2d54287b9618df4912834ad5f9c": "gold", "8f33c4df30ab67273cfe987868bd824e80800feeff6ec31417ee831f2f91d484": "gold", "493eb665869877bd6d39b98c48c8e9051c9027ad3fd6a05c21d5ceea795721d4": "platinum", "62bf75c64e01f77f65c497b8fcf916138ed388b8db99f35b68a01dbba4c18859": "platinum", "eb3626a1109c78b6530c362fdcf1aecd3c0adf4182dc2edc7f9451967e1e2735": "platinum", "7bb2a0b85f75990a82be9194e9dee34e8e53a17c2df77db4fa69e5ba10046235": "platinum", "27f8d4866204f85f64d11ea13d005279fec81bb3ce4d5ac98946b474e6ea8064": "platinum", "af8d0d6a9900e43b619d9f7bcf271641e54f6378bec375b613ddbd3a08455540": "platinum", "86c425384d607161288cfe7ce4856f2ab2128ac0e75432469358af1c18a9c0e3": "platinum", "63135c5cc6836079b42683ce3dd0309f6a8fbd472be7264e0dccd182ee5a6472": "platinum", "d8d85514472e94db9fecc40dfe5a6c7ddd20bff47237c08594bc5cbba51294dd": "platinum", "e3a8ddba69af53792f8e5a812305f179a701139e2694cc7f5e0bb66805848be9": "platinum", "58ebded4236dd199595e91d9af14127e25000495a6de7b795279e764fa170320": "black", "5a36286209d0e9aec12396d914db7d98fe1cbc1f0a43e1af50c46a58e87876d6": "black", "f19712f1881634f4c9a35d61e374ee83504b68692e3a46e5ae7b3253578d987f": "black", "0f0455e1a79722a4c72e67a50f20895ce2ee6fdc2de3851a2a10e4ae4719b662": "black", "f556012a96ddf5010286ba93d477789281abf28f546a40579d9746beadb1a68f": "black", "6b015f15c19321073a4696d2719e2795616320bb1aadf6e5524031fd5e4be3e6": "black", "3046be8bf22b963663cfc641c009ab71fd84002ad87af8e52761b0d72e68db4c": "black", "136f5ed62d1b563e6d5bbcff29ec7024016be4ed3d67cb6ee710ec897eb24485": "black", "c048cd1ee8eaf3041e32d8d31c8d7d3f322b7c5927508b884202cb27f4785014": "black", "9222001b5ef8db73380c584ad39ae8a946412b02a636018aba7605983adc063c": "black"},
+  paketHarita: {"61733b320554856b824242a3bedf324af40cf822b88ce09299963c91a31fa548": "uye", "d03999d2c4741d18c80b449d84e31b2ce85ef255c5a1bbfc6d6880e031a31e36": "gold", "02bf377f57742ae1b2af12474a38c09b48591886474717828b68c049ccd97695": "gold", "b9e40e69478ccf3d4a9c6a59e5fc9255416c3d6ef6edeade611db25865f46c23": "gold", "7c0fa0b3adc4b21a0961e72f47134eb53d0a285a949b785a7060e9d1cc4fcba5": "gold", "0277a3376e86beb3316577662cdedf394ac1ab88bcfe4aae8abb74e1144758b1": "gold", "88d150424522d4357edbe0eda13dbfa8f12424e7292da8876015c14100f8bdbb": "gold", "92c43d6e7888653a25c65175f4ac10059e28ed60dc93f54e5341fc35b8077fd2": "gold", "8398bf4e9f2b85d629ef9ace07d5c9447c9530ba77379184ce2bc65ac7225db6": "gold", "b8e9631a4e2bd1c8972f8a9d09a20c4b7b70e2d54287b9618df4912834ad5f9c": "gold", "8f33c4df30ab67273cfe987868bd824e80800feeff6ec31417ee831f2f91d484": "gold", "493eb665869877bd6d39b98c48c8e9051c9027ad3fd6a05c21d5ceea795721d4": "platinum", "62bf75c64e01f77f65c497b8fcf916138ed388b8db99f35b68a01dbba4c18859": "platinum", "eb3626a1109c78b6530c362fdcf1aecd3c0adf4182dc2edc7f9451967e1e2735": "platinum", "7bb2a0b85f75990a82be9194e9dee34e8e53a17c2df77db4fa69e5ba10046235": "platinum", "27f8d4866204f85f64d11ea13d005279fec81bb3ce4d5ac98946b474e6ea8064": "platinum", "af8d0d6a9900e43b619d9f7bcf271641e54f6378bec375b613ddbd3a08455540": "platinum", "86c425384d607161288cfe7ce4856f2ab2128ac0e75432469358af1c18a9c0e3": "platinum", "63135c5cc6836079b42683ce3dd0309f6a8fbd472be7264e0dccd182ee5a6472": "platinum", "d8d85514472e94db9fecc40dfe5a6c7ddd20bff47237c08594bc5cbba51294dd": "platinum", "e3a8ddba69af53792f8e5a812305f179a701139e2694cc7f5e0bb66805848be9": "platinum", "58ebded4236dd199595e91d9af14127e25000495a6de7b795279e764fa170320": "black", "5a36286209d0e9aec12396d914db7d98fe1cbc1f0a43e1af50c46a58e87876d6": "black", "f19712f1881634f4c9a35d61e374ee83504b68692e3a46e5ae7b3253578d987f": "black", "0f0455e1a79722a4c72e67a50f20895ce2ee6fdc2de3851a2a10e4ae4719b662": "black", "f556012a96ddf5010286ba93d477789281abf28f546a40579d9746beadb1a68f": "black", "6b015f15c19321073a4696d2719e2795616320bb1aadf6e5524031fd5e4be3e6": "black", "3046be8bf22b963663cfc641c009ab71fd84002ad87af8e52761b0d72e68db4c": "black", "136f5ed62d1b563e6d5bbcff29ec7024016be4ed3d67cb6ee710ec897eb24485": "black", "c048cd1ee8eaf3041e32d8d31c8d7d3f322b7c5927508b884202cb27f4785014": "black", "9222001b5ef8db73380c584ad39ae8a946412b02a636018aba7605983adc063c": "black"},
 
   erisimKodlari: [
+    "61733b320554856b824242a3bedf324af40cf822b88ce09299963c91a31fa548",  // GENEL ÜYE KODU (tüm yatırımcılara verilen ortak kod — paket yok, her şeyi görür, araçlar kilitli)
     "25497477040397028a6b605873edc351e6e477a6921158b20776acfbc4285776",  // Yönetici (tüm erişim)
     "d03999d2c4741d18c80b449d84e31b2ce85ef255c5a1bbfc6d6880e031a31e36",  // GOLD #01
     "02bf377f57742ae1b2af12474a38c09b48591886474717828b68c049ccd97695",  // GOLD #02
@@ -1211,10 +1215,11 @@ function initChart(){
 }
 
 /* Paket seviyesi */
-const TIER_ORDER = {gold:1, platinum:2, black:3}, TIER_AD = {gold:"Gold", platinum:"Platinum", black:"Black"};
+const TIER_ORDER = {uye:0, gold:1, platinum:2, black:3}, TIER_AD = {uye:"VIP", gold:"Gold", platinum:"Platinum", black:"Black"};
 function myTier(){ const s = window._session; if (!s) return "gold"; if (s.trial) return "gold"; return (CONFIG.paketHarita||{})[s.h] || "black"; }
 const hasTier = t => TIER_ORDER[myTier()] >= TIER_ORDER[t];
-const upLink = t => waLink(`${CONFIG.marka} ${TIER_AD[t]} paketine geçmek istiyorum.`);
+const upLink = t => waLink(myTier()==="uye" ? `${CONFIG.marka} ${TIER_AD[t]} paketini satın almak istiyorum.` : `${CONFIG.marka} ${TIER_AD[t]} paketine geçmek istiyorum.`);
+const upTxt = t => myTier()==="uye" ? `${TIER_AD[t]} paketiyle açılır` : `${TIER_AD[t]} pakete geç`;
 
 /* Algoritmalar */
 function initAlgo(){
@@ -1230,7 +1235,7 @@ function initAlgo(){
   const L = (CONFIG.indikatorler||[]).map(([ad,kat,zm,pk,ne,kime,nasil]) => ({ad,kat,zm,pk:pk||"gold",ne,kime,nasil}));
   const cats = ["Tümü", ...new Set(L.map(x=>x.kat))]; let cat = "Tümü";
   const open = L.filter(x=>hasTier(x.pk)).length;
-  $("#indCount").textContent = `${open} / ${L.length} erişiminizde`;
+  $("#indCount").textContent = myTier()==="uye" ? `${L.length} indikatör` : `${open} / ${L.length} erişiminizde`;
   const drawInd = () => {
     const q = ($("#indQ").value||"").toLocaleLowerCase("tr-TR");
     const f = L.filter(x => (cat==="Tümü"||x.kat===cat) && (!q || (x.ad+" "+x.ne+" "+x.kat).toLocaleLowerCase("tr-TR").includes(q)));
@@ -1242,7 +1247,7 @@ function initAlgo(){
       <details class="iq"><summary>Nasıl kullanılır?</summary>${esc(x.nasil)}</details>
       <div class="im"><span>${esc(x.kat)}</span><span>⏱ ${esc(x.zm)}</span><span>MT5</span></div>
       ${ok?`<a target="_blank" rel="noopener" href="${waLink(x.ad+" indikatörünün kurulumu için destek almak istiyorum.")}">💬 Kurulum desteği iste →</a>`
-          :`<a class="up" target="_blank" rel="noopener" href="${upLink(x.pk)}">👑 ${TIER_AD[x.pk]} pakete geç →</a>`}</div>`; }).join("")
+          :`<a class="up" target="_blank" rel="noopener" href="${upLink(x.pk)}">👑 ${upTxt(x.pk)} →</a>`}</div>`; }).join("")
       : `<div class="muted" style="grid-column:1/-1;text-align:center;padding:20px">Aramanıza uygun indikatör bulunamadı.</div>`;
   };
   $("#indCats").innerHTML = cats.map(c => `<button data-cat="${esc(c)}" class="${c===cat?"on":""}">${esc(c)}${c==="Tümü"?"":" · "+L.filter(x=>x.kat===c).length}</button>`).join("");
@@ -1358,7 +1363,7 @@ function initRobot(){
       <div class="iq"><em>Kime önerilir?</em>${esc(kime)}</div>
       ${t==="yari"?`<div class="big-acc">💼 ${esc(CONFIG.yariManuelNot||"")}</div>`:""}
       <div class="rm"><span>${t==="ea"?"Tam otomatik":"Yarı manuel"}</span><span>${esc(st)}</span><span>${esc(pz)}</span><span>MT5</span></div>
-      <div class="rlinks">${ok?`<a target="_blank" rel="noopener" href="${waLink(ad+" robotunun kurulumu için destek almak istiyorum.")}">💬 Kurulum iste</a>`:`<a class="up" target="_blank" rel="noopener" href="${upLink(pk)}">👑 ${TIER_AD[pk]} pakete geç</a>`}
+      <div class="rlinks">${ok?`<a target="_blank" rel="noopener" href="${waLink(ad+" robotunun kurulumu için destek almak istiyorum.")}">💬 Kurulum iste</a>`:`<a class="up" target="_blank" rel="noopener" href="${upLink(pk)}">👑 ${upTxt(pk)}</a>`}
         <a target="_blank" rel="noopener" href="${waLink(ad+" robotunun izleyici (investor) şifresini / demo sürümünü talep ediyorum.")}">👁️ İzleyici şifresi iste</a>
         <a target="_blank" rel="noopener" href="${waLink(ad+" robotu için kişisel lisans fiyatı almak istiyorum.")}">🔑 Kişisel lisans</a></div></div>`; }).join("");
   };
@@ -1370,6 +1375,7 @@ function initRobot(){
 
 /* Paketler */
 function initPkg(){
+  $("#pkgIntro").innerHTML = myTier()==="uye" ? `<div class="card noPk"><b>Henüz bir paketiniz yok.</b> İndikatör, robot ve copy trade erişimi için size uygun paketi seçin; <b>Satın Al</b> butonuna bastığınızda uzmanınız sizinle iletişime geçer ve paketinize özel erişim kodunuzu iletir.</div>` : "";
   const me = myTier(), ck = v => v===true ? '<span class="ok">✓</span>' : v===false ? '<span class="no">✕</span>' : esc(v);
   $("#pkgCards").innerHTML = CONFIG.paketler.map((p,i) => { const cur = !(window._session&&window._session.trial) && p.id===me; return `
     <div class="card pkg pk2 pkg-${p.id} ${p.vurgu?"glow":""}" style="animation-delay:${i*.1}s">
@@ -1857,7 +1863,7 @@ function renderYat(){
   if (!y){ $("#memberCard").style.display = "none"; return; }
   const ini = y.ad.split(" ").filter(Boolean).map(w=>w[0]).slice(0,2).join("").toLocaleUpperCase("tr-TR");
   const since = new Date(y.since||Date.now()).toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
-  const tier = window._session && window._session.trial ? "Deneme Üye" : TIER_AD[myTier()] + " Üye";
+  const tier = window._session && window._session.trial ? "Deneme Üye" : (myTier()==="uye" ? "VIP Üye" : TIER_AD[myTier()] + " Üye");
   $("#greet").textContent = y.ad;
   $("#tierBadge").textContent = `◆ ${tier} · MT5 ${y.login}`;
   const mc = $("#memberCard"); mc.style.display = "";
